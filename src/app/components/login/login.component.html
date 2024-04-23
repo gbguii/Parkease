@@ -12,9 +12,9 @@
                 <div class="col-xs-12 col-md-8 px-4 py-3">
                     <label for="senha" class="form-label">Senha</label>
                     <div class="input-group">
-                        <input class="form-control" [type]="isPasswordVisible ? 'text' : 'password'" id="senha" name="senha" [(ngModel)]="usuario.senha">
-                        <button (click)="togglePasswordVisibility()" class="input-group-text btn btn-outline-primary">
-                            <i [ngClass]="{'bi bi-eye-slash-fill': !isPasswordVisible, 'bi bi-eye-fill': isPasswordVisible}"></i>
+                        <input class="form-control" [type]="mostrarSenha ? 'text' : 'password'" id="senha" name="senha" [(ngModel)]="usuario.senha">
+                        <button (click)="mudarVisibilidadeSenha()" class="input-group-text btn btn-outline-primary">
+                            <i [ngClass]="{'bi bi-eye-slash-fill': !mostrarSenha, 'bi bi-eye-fill': mostrarSenha}"></i>
                         </button>
                     </div>
                 </div>

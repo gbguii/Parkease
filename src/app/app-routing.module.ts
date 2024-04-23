@@ -13,8 +13,7 @@ const routes: Routes = [
     component: BaseUiComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'usuarios', component: UserComponent },
-      { path: '**', component: HomeComponent }
+      { path: 'usuarios', component: UserComponent }
     ],
     canActivate: [AuthGuard]
   },

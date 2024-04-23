@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ResponseAPI } from '../../models/responseAPI';
+import { GerarToken } from '../../services/GerarToken';
 
 @Component({
   selector: 'app-login',
@@ -7,10 +9,12 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private router: Router) { }
+  
+  constructor(private router: Router, private token: GerarToken) { }
+
   loginSucess: boolean = true;
   loginUnsucessMessage: string = '';
-  isPasswordVisible: boolean = false;
+  mostrarSenha: boolean = false;
 
   usuario: any = {
     login: '',
@@ -18,48 +22,26 @@ export class LoginComponent {
   };
 
   async logar() {
-    let url = "http://localhost:5005/GerarToken";
-    let config = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        login: this.usuario.login,
-        senha: this.usuario.senha
-      })
-    }
-    let token: string | unknown = await this.realizarLoginApi(url, config);
-    if (token) {
-      window.localStorage.setItem('token', token.toString());
+    let body = JSON.stringify({
+      login: this.usuario.login,
+      senha: this.usuario.senha
+    });
+    let responseAPI:ResponseAPI = await this.token.GeraToken(body);
+    if (responseAPI.sucesso) {
+      window.localStorage.setItem('token', responseAPI.dados);
       this.router.navigate(['']);
     }else{
       this.loginSucess = false;
+      this.loginUnsucessMessage = responseAPI.mensagem;
     }
   }
 
-  togglePasswordVisibility(){
-    this.isPasswordVisible = !this.isPasswordVisible;
+
+  mudarVisibilidadeSenha(){
+    this.mostrarSenha = !this.mostrarSenha;
   }
 
   cadastrar() { }
 
-  async realizarLoginApi(
-    url: string,
-    config: object
-  ): Promise<unknown> {
-    try {
-      const response = await fetch(url, config);
-      if (!response.ok) {
-        this.loginSucess = false;
-        this.loginUnsucessMessage = await response.text();
-        return null;
-      }
-      return await response.text();
-    }
-    catch (error) {
-      console.error('Erro ao realizar login: ', error);
-      return null;
-    }
-  }
+  
 }
