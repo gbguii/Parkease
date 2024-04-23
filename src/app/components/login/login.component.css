@@ -1,0 +1,10 @@
+.logo {
+    width: 120px;
+    border-radius: 50%;
+}
+
+.logo-space {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

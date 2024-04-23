@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --main-white-color: #f2f2f2;
+    --main-black-color: #0a0c0d;
+    --main-green-gray-color: #213635;
+    --main-green-dark-color: #1c5052;
+    --main-green-light-color: #348e91;
+}
+
+html {
+    background-color: var(--main-white-color);
+}
+
+.bg-white-main {
+    background-color: var(--main-white-color);
+}
+
+.bg-black-main {
+    background-color: var(--main-black-color);
+}
+
+.bg-green-gray-main {
+    background-color: var(--main-green-gray-color);
+}
+
+.bg-green-dark-main {
+    background-color: var(--main-green-dark-color);
+}
+
+.bg-green-light-main {
+    background-color: var(--main-green-light-color);
+}
+
+.color-white-main {
+    color: var(--main-white-color);
+}
