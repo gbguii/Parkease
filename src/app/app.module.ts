@@ -18,6 +18,10 @@ import en from '@angular/common/locales/en';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { ReactiveFormsModule } from '@angular/forms';
 
 registerLocaleData(en);
 
@@ -36,7 +40,11 @@ registerLocaleData(en);
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NzTableModule
+    NzTableModule,
+    NzModalModule,
+    NzButtonModule,
+    NzSelectModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
