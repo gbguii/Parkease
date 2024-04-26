@@ -22,4 +22,17 @@ export class UsuarioService{
             return retorno = { sucesso: false, dados: null, mensagem: "Não foi possível retornar os usuários, tente novamente." };
         }
     }
+
+    public async criarUsuario(body: any): Promise<ResponseAPI> {
+        let retorno: ResponseAPI;
+        try {
+            let retornoApi = await lastValueFrom(this.http.postText<string>('CadastrarUsuario', body));
+            return retorno = { sucesso: true, dados: "", mensagem: retornoApi };
+        } catch (error) {
+            if (error instanceof HttpErrorResponse) {
+                return retorno = { sucesso: false, dados: null, mensagem: error.error };
+            }
+            return retorno = { sucesso: false, dados: null, mensagem: "Não foi possível criar o usuário, tente novamente." };
+        }
+    }
 }

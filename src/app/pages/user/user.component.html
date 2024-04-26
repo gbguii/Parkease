@@ -1,3 +1,6 @@
+<div class="my-4">
+  <button nz-button [nzType]="'primary'" (click)="abrirModal()"><span>Criar Usuário</span></button>
+</div>
 <nz-table #basicTable [nzData]="listaUsuarios">
     <thead>
       <tr>
@@ -16,3 +19,25 @@
       </tr>
     </tbody>
   </nz-table>
+<nz-modal [(nzVisible)]="mostrarModal" nzTitle="Criar Usuário" (nzOnCancel)="fecharModal()" (nzOnOk)="criarUsuario()" nzOkText="Cadastrar">
+  <ng-container *nzModalContent [formGroup]="formulario">
+    <div class="justify-content-center">
+      <div class="row justify-content-center">
+        <div class="col-xs-12 col-md-10 px-4 py-3">
+          <label for="">Login</label>
+          <input class="form-control" nz-input type="text" formControlName="login">
+        </div>
+        <div class="col-xs-12 col-md-10 px-4 py-3">
+          <label for="">Senha</label>
+          <input class="form-control" nz-input type="password" formControlName="senha">
+        </div>
+        <div class="col-xs-12 col-md-10 px-4 py-3">
+          <label for="">Acesso</label>
+          <nz-select (nzOptions)="listaAcessos" class="form-control" formControlName="acesso">
+            <nz-option *ngFor="let acesso of listaAcessos" [nzLabel]="acesso" [nzValue]="acesso"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>

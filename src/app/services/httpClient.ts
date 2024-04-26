@@ -9,24 +9,28 @@ import { environmentDev } from '../environment/environment.dev';
 export class HttpClientService {
     constructor(private http: HttpClient) {}
 
-    // Exemplo de requisição GET
     public get<T>(endpoint: string, queryString? : string): Observable<T> {
         return this.http.get<T>(environmentDev.apiUrl + endpoint + (queryString ? queryString : ""), {headers: this.headers()});
     }
 
-    // Exemplo de requisição POST
     public post<T>(endpoint: string, body: any): Observable<T> {
         return this.http.post<T>(environmentDev.apiUrl + endpoint, body, {headers: this.headers()});
     }
 
-    // Exemplo de requisição PUT
+    public postText<T>(endpoint: string, body: any): Observable<T> {
+        return this.http.post<T>(environmentDev.apiUrl + endpoint, body, this.HTTPOtionsForTextWithToken);
+    }
+
     public put<T>(endpoint: string, body: any): Observable<T> {
         return this.http.put<T>(environmentDev.apiUrl + endpoint, body, {headers: this.headers()});
     }
 
-    // Exemplo de requisição DELETE
+    public putText<T>(endpoint: string, body: any): Observable<T> { 
+        return this.http.put<T>(environmentDev.apiUrl + endpoint, body, this.HTTPOtionsForTextWithToken);
+    }
+
     public delete<T>(endpoint: string, parametros?: string): Observable<T> {
-        return this.http.delete<T>(environmentDev.apiUrl + endpoint + (parametros ? parametros : ""), {headers: this.headers()});
+        return this.http.delete<T>(environmentDev.apiUrl + endpoint + (parametros ? parametros : ""), this.HTTPOtionsForTextWithToken);
     }
 
     public getToken(body: any): Observable<string> {
@@ -35,6 +39,11 @@ export class HttpClientService {
 
     HTTPOptionsForText: Object = {
         headers: new HttpHeaders({'Content-Type': 'application/json'}),
+        responseType: 'text'
+    }
+
+    HTTPOtionsForTextWithToken: Object = {
+        headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token')}),
         responseType: 'text'
     }
 
